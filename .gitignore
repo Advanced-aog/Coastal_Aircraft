@@ -1,0 +1,8 @@
+# OS files
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# LFS pointer files (actual models not available)
+*.glb

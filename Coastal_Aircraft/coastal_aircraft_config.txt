@@ -1,0 +1,30 @@
+=== COASTAL AIRCRAFT — DEV TOOL CONFIG ===
+Generated: 2026-02-17T10:11:54.133Z
+
+--- CAMERA POSITIONS ---
+[HOME] — not set
+[RAMP] — not set
+[OFFICE] — not set
+
+--- MESH GROUPS ---
+[RAMP] (0 meshes)
+  (empty)
+[OFFICE] (2 meshes)
+  s1621
+  s1609
+
+--- RAW JSON ---
+{
+  "cameras": {
+    "home": null,
+    "ramp": null,
+    "office": null
+  },
+  "meshGroups": {
+    "ramp": [],
+    "office": [
+      "s1621",
+      "s1609"
+    ]
+  }
+}

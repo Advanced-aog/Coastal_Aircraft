@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coastal Aircraft Maintenance | Investor Opportunity</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+        }
+    }
+    </script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="video-background">
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Coastal Aircraft Maintenance</h1>
+            <p class="subtitle">Elevating Aviation Maintenance at PDK</p>
+            <div class="stat-row">
+                <div class="stat">
+                    <span class="value">$5MM</span>
+                    <span class="label">Investment Opportunity</span>
+                </div>
+                <div class="stat">
+                    <span class="value">6x</span>
+                    <span class="label">Projected Growth by 2028</span>
+                </div>
+            </div>
+            <a href="#executive-summary" class="btn primary">Explore Opportunity</a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Coastal Aircraft Maintenance</div>
+        <ul>
+            <li><a href="#executive-summary">Overview</a></li>
+            <li><a href="#market">Market</a></li>
+            <li><a href="#financials">Financials</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#digital-twin">Facility</a></li>
+        </ul>
+    </nav>
+
+    <!-- Executive Summary -->
+    <section id="executive-summary" class="content-section">
+        <div class="container">
+            <h2>Executive Summary</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Strategic Merger</h3>
+                    <p>Advanced AOG & Avionics is merging with Airmen MX to form <strong>Coastal Aircraft
+                            Maintenance</strong>. This consolidates 17 Part 91 managed aircraft and capitalizes on
+                        existing synergies.</p>
+                </div>
+                <div class="card">
+                    <h3>Prime Location</h3>
+                    <p>Acquiring a 20,000 sq. ft. hangar at <strong>Peachtree DeKalb Airport (PDK)</strong>, the
+                        second-busiest airport in Georgia, with direct taxiway access and expansion capabilities.</p>
+                </div>
+                <div class="card">
+                    <h3>MRO Expansion</h3>
+                    <p>Transitioning from mobile services to a full-service "bricks and mortar" MRO. Capabilities
+                        include Phenom, Hawker, King Air, Citation, Falcon, and Learjet airframes.</p>
+                </div>
+                <div class="card">
+                    <h3>Growth Trajectory</h3>
+                    <p>Projected revenue growth from $2.2MM (Current) to <strong>$13.5MM+ by 2028</strong>, driven by
+                        hangar acquisition, aggressive technician scaling, and fuel sales expansion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Opportunity -->
+    <section id="market" class="content-section dark-bg">
+        <div class="container">
+            <h2>The Opportunity</h2>
+            <div class="grid-2">
+                <div class="text-content">
+                    <h3>A Gap in the Market</h3>
+                    <p>PDK is a premier corporate aviation hub, yet demand for high-quality, responsive MRO services
+                        exceeds supply. Coastal Aircraft Maintenance is positioned to fill this gap with a service-first
+                        approach.</p>
+                    <ul class="check-list">
+                        <li><strong>Instant Revenue:</strong> Inherits $500k-550k/year in hangarage revenue immediately
+                            upon purchase.</li>
+                        <li><strong>Fuel Farm Potential:</strong> Adjacent vacant property allows for ramp expansion to
+                            maximize fuel sales.</li>
+                        <li><strong>Workforce Scale:</strong> Growing from 12 technicians at merger to 20 by 2027.</li>
+                    </ul>
+                </div>
+                <div class="waterfall-widget">
+                    <h3 class="waterfall-title">Revenue Build-Up</h3>
+                    <div class="waterfall-tabs">
+                        <button class="wf-tab active" data-stage="day1" onclick="setWaterfallStage('day1')">Day
+                            1</button>
+                        <button class="wf-tab" data-stage="year1" onclick="setWaterfallStage('year1')">Year 1</button>
+                        <button class="wf-tab" data-stage="year3" onclick="setWaterfallStage('year3')">Year 3</button>
+                    </div>
+                    <div class="waterfall-chart" id="waterfallChart">
+                        <div class="wf-bar-group">
+                            <div class="wf-bar-stack" id="wfStack">
+                                <!-- Bars injected by JS -->
+                            </div>
+                            <div class="wf-total" id="wfTotal">$0</div>
+                        </div>
+                        <div class="wf-legend" id="wfLegend">
+                            <!-- Legend injected by JS -->
+                        </div>
+                    </div>
+                    <p class="wf-hint">Click a timeline to see revenue grow →</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financials -->
+    <section id="financials" class="content-section">
+        <div class="container">
+            <h2>Financial Performance</h2>
+            <p class="section-intro">Historical stability with aggressive post-acquisition growth.</p>
+
+            <div class="chart-container-wrapper">
+                <div class="chart-box">
+                    <h3>Revenue Growth (Actual vs. Projected)</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <!-- Interactive Toggle for Scenarios -->
+                <div class="controls">
+                    <button onclick="updateChart('base')" class="btn secondary active" id="btn-base">Base Case</button>
+                    <button onclick="updateChart('upside')" class="btn secondary" id="btn-upside">Upside Case</button>
+                </div>
+
+                <!-- Financial Table -->
+                <div class="table-container">
+                    <h3 id="tableTitle">Projected Profit & Loss Statement (Base Case)</h3>
+                    <table class="financial-table">
+                        <thead>
+                            <tr>
+                                <th>(in Millions)</th>
+                                <th>2023 (Act)</th>
+                                <th>2024 (Act)</th>
+                                <th>2025 (Act)</th>
+                                <th class="proj-header">2026 (Proj)</th>
+                                <th class="proj-header">2027 (Proj)</th>
+                                <th class="proj-header">2028 (Proj)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="plBody">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="financial-grid">
+                <div class="metric">
+                    <h4>2023 Actual Revenue</h4>
+                    <p class="number">$3.08M</p>
+                    <small>45.5% Gross Margin</small>
+                </div>
+                <div class="metric">
+                    <h4>2026 Projected</h4>
+                    <p class="number">$5.75M</p>
+                    <small>Stabilized 12 Techs</small>
+                </div>
+                <div class="metric">
+                    <h4>2028 Projected</h4>
+                    <p class="number">$13.5M</p>
+                    <small>Full Scale Operations</small>
+                </div>
+                <div class="metric">
+                    <h4>2028 EBITDA</h4>
+                    <p class="number">$1.90M</p>
+                    <small>14% EBITDA Margin</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Model Calculator -->
+    <section id="calculator" class="content-section dark-bg">
+        <div class="container">
+            <h2>Investment Simulator</h2>
+            <p>Adjust core drivers to see potential revenue outcomes.</p>
+            <div class="calculator-wrapper">
+                <div class="inputs">
+                    <label>
+                        Technicians
+                        <input type="range" id="techCount" min="10" max="30" value="20" oninput="updateCalculator()">
+                        <span id="techDisplay">20</span>
+                    </label>
+                    <label>
+                        Billable Rate ($/hr)
+                        <input type="range" id="billableRate" min="150" max="250" value="165" step="5"
+                            oninput="updateCalculator()">
+                        <span id="rateDisplay">$165</span>
+                    </label>
+                    <label>
+                        Hangarage Revenue ($/yr)
+                        <input type="range" id="hangarRevenue" min="400000" max="800000" value="550000" step="10000"
+                            oninput="updateCalculator()">
+                        <span id="hangarDisplay">$550,000</span>
+                    </label>
+                </div>
+                <div class="outputs">
+                    <div class="output-card">
+                        <h5>Est. Service Revenue</h5>
+                        <p id="calcServiceRev">$0</p>
+                    </div>
+                    <div class="output-card highlight">
+                        <h5>Total Est. Gross Revenue</h5>
+                        <p id="calcTotalRev">$0</p>
+                        <small>Includes Service, Fuel ($1M est), & Hangarage</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Twin - 3D Scene -->
+    <section id="digital-twin" class="content-section">
+        <div class="container">
+            <h2>Future Headquarters</h2>
+            <p>Interactive 3D View of the Hangar & Ramp Expansion.</p>
+            <div class="scene-wrapper">
+
+                <!-- Loading Overlay (scoped inside scene-wrapper) -->
+                <div id="dt-loading-overlay">
+                    <div class="dt-loader-content">
+                        <div class="dt-loader-title">Coastal Aircraft</div>
+                        <div class="dt-loader-subtitle">Loading 3D Model…</div>
+                        <div class="dt-progress-track">
+                            <div class="dt-progress-fill" id="dt-progress-fill"></div>
+                        </div>
+                        <div class="dt-progress-text" id="dt-progress-text">0%</div>
+                    </div>
+                </div>
+
+                <!-- View Nav Bar -->
+                <div id="dt-view-nav">
+                    <button class="dt-view-btn active" data-view="home">Home</button>
+                    <button class="dt-view-btn" data-view="ramp">Ramp</button>
+                    <button class="dt-view-btn" data-view="office">Office</button>
+                </div>
+
+                <!-- Visibility Slider Panel -->
+                <div id="dt-slider-panel" class="dt-hidden">
+                    <div class="dt-slider-title" id="dt-slider-title">Visibility</div>
+                    <div class="dt-slider-row">
+                        <label for="dt-vis-slider">Opacity</label>
+                        <input type="range" id="dt-vis-slider" min="0" max="100" value="0" />
+                        <span id="dt-vis-value">0%</span>
+                    </div>
+                </div>
+
+                <!-- Dev Mode Toggle -->
+                <button id="dt-dev-toggle" title="Toggle Developer Mode">i</button>
+
+                <!-- Dev Panel (hidden by default) -->
+                <div id="dt-dev-panel" class="dt-hidden">
+                    <div class="dt-dev-panel-title">Dev Controls</div>
+                    <!-- Clicked Mesh -->
+                    <div class="dt-dev-section">
+                        <div class="dt-dev-section-title">Clicked Mesh</div>
+                        <div class="dt-dev-readout" id="dt-dev-mesh-info">Click a mesh…</div>
+                    </div>
+                    <!-- Assign to Group -->
+                    <div class="dt-dev-section">
+                        <div class="dt-dev-section-title">Assign to Group</div>
+                        <div class="dt-dev-assign-row">
+                            <button class="dt-dev-mesh-btn" data-group="ramp">+ Ramp</button>
+                            <button class="dt-dev-mesh-btn" data-group="office">+ Office</button>
+                        </div>
+                    </div>
+                    <!-- Mesh Groups -->
+                    <div class="dt-dev-section">
+                        <div class="dt-dev-section-title">Mesh Groups</div>
+                        <div class="dt-dev-group">
+                            <div class="dt-dev-group-label">Ramp</div>
+                            <div class="dt-dev-mesh-list" id="dt-dev-ramp-list">—</div>
+                        </div>
+                        <div class="dt-dev-group">
+                            <div class="dt-dev-group-label">Office</div>
+                            <div class="dt-dev-mesh-list" id="dt-dev-office-list">—</div>
+                        </div>
+                    </div>
+                    <!-- Camera -->
+                    <div class="dt-dev-section">
+                        <div class="dt-dev-section-title">Camera</div>
+                        <div class="dt-dev-readout" id="dt-dev-cam-readout" style="font-size:0.58rem; line-height:1.6">
+                            Move camera to update</div>
+                        <div class="dt-dev-assign-row" style="margin-top:8px">
+                            <button class="dt-dev-mesh-btn dt-dev-cam-btn" data-preset="home">Set Home</button>
+                            <button class="dt-dev-mesh-btn dt-dev-cam-btn" data-preset="ramp">Set Ramp</button>
+                            <button class="dt-dev-mesh-btn dt-dev-cam-btn" data-preset="office">Set Office</button>
+                        </div>
+                    </div>
+                    <!-- Lighting Controls -->
+                    <div class="dt-dev-section">
+                        <div class="dt-dev-section-title">Lighting</div>
+                        <div class="dt-dev-slider-row">
+                            <label>Sun</label>
+                            <input type="range" id="dt-dev-sun" min="0" max="500" value="200" step="10" />
+                            <span class="dt-dev-slider-val" id="dt-dev-sun-val">2.0</span>
+                        </div>
+                        <div class="dt-dev-slider-row">
+                            <label>Ambient</label>
+                            <input type="range" id="dt-dev-ambient" min="0" max="100" value="15" step="5" />
+                            <span class="dt-dev-slider-val" id="dt-dev-ambient-val">0.15</span>
+                        </div>
+                        <div class="dt-dev-slider-row">
+                            <label>Exposure</label>
+                            <input type="range" id="dt-dev-exposure" min="10" max="300" value="100" step="5" />
+                            <span class="dt-dev-slider-val" id="dt-dev-exposure-val">1.0</span>
+                        </div>
+                        <div class="dt-dev-slider-row">
+                            <label>Env</label>
+                            <input type="range" id="dt-dev-env" min="0" max="300" value="120" step="10" />
+                            <span class="dt-dev-slider-val" id="dt-dev-env-val">1.2</span>
+                        </div>
+                    </div>
+                    <!-- Save -->
+                    <div class="dt-dev-section">
+                        <button class="dt-dev-action-btn" id="dt-dev-save">💾 Save Config to scene.js</button>
+                        <div class="dt-dev-readout dt-dev-status" id="dt-dev-save-status"></div>
+                    </div>
+                </div>
+
+                <!-- Three.js Canvas Container -->
+                <div id="dt-canvas-container"></div>
+                <div class="scene-hint">Click & drag to orbit · Scroll to zoom</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="content-section">
+        <div class="container">
+            <h2>Leadership Team</h2>
+            <div class="org-chart">
+                <div class="member level-1">
+                    <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#00a8e8" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg></div>
+                    <h4>Josh Millard</h4>
+                    <p class="member-title">President</p>
+                    <p class="member-desc">Strategic Vision</p>
+                </div>
+                <div class="connector"></div>
+                <div class="level-2-wrapper">
+                    <div class="member level-2">
+                        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#00a8e8" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg></div>
+                        <h4>Brent Smith</h4>
+                        <p class="member-title">Director of Avionics</p>
+                    </div>
+                    <div class="member level-2">
+                        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#00a8e8" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg></div>
+                        <h4>Tim DeYoung</h4>
+                        <p class="member-title">Chief Inspector</p>
+                    </div>
+                    <div class="member level-2">
+                        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#00a8e8" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg></div>
+                        <h4>Mallory Shelton</h4>
+                        <p class="member-title">Sr. Account Exec</p>
+                    </div>
+                    <div class="member level-2">
+                        <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#00a8e8" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg></div>
+                        <h4>&nbsp;</h4>
+                        <p class="member-title">Director of Maintenance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Coastal Aircraft Maintenance. Confidential Investor Presentation.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="module" src="scene.js?v=2026021715"></script>
+</body>
+
+</html>
