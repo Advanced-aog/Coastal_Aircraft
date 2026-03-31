@@ -206,9 +206,9 @@ gltfLoader.load(
                     const cSize = cBox.getSize(new THREE.Vector3());
                     
                     // Exclude massive structural items (floor, main skin) so they don't fade out
-                    if (cSize.x < size.x * 0.4 && cSize.y < size.y * 0.4 && cSize.z < size.z * 0.4) {
-                        if (cCenter.x < center.x - size.x * 0.12) isOffice = true;
-                        else if (cCenter.x > center.x + size.x * 0.12) isRamp = true;
+                    if (cSize.x < size.x * 0.9 && cSize.y < size.y * 0.9 && cSize.z < size.z * 0.9) {
+                        if (cCenter.x < center.x - size.x * 0.05) isOffice = true;
+                        else if (cCenter.x > center.x + size.x * 0.05) isRamp = true;
                     }
                 }
 
