@@ -187,30 +187,44 @@ gltfLoader.load(
             }
         });
 
-        // ─── Collect meshes by name for ramp/office groups ───
+        // ─── Centre & position ───
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+
+        // ─── Collect meshes by name or geometry for ramp/office groups ───
         model.traverse((child) => {
             if (child.isMesh) {
-                if (RAMP_MESH_NAMES.includes(child.name)) {
+                let isRamp = RAMP_MESH_NAMES.includes(child.name);
+                let isOffice = OFFICE_MESH_NAMES.includes(child.name);
+
+                // Auto-fallback mapping for unlabelled models (e.g. s.XXXX parts)
+                if (!isRamp && !isOffice && child.name.startsWith('s.')) {
+                    const cBox = new THREE.Box3().setFromObject(child);
+                    const cCenter = cBox.getCenter(new THREE.Vector3());
+                    const cSize = cBox.getSize(new THREE.Vector3());
+                    
+                    // Exclude massive structural items (floor, main skin) so they don't fade out
+                    if (cSize.x < size.x * 0.4 && cSize.y < size.y * 0.4 && cSize.z < size.z * 0.4) {
+                        if (cCenter.x < center.x - size.x * 0.12) isOffice = true;
+                        else if (cCenter.x > center.x + size.x * 0.12) isRamp = true;
+                    }
+                }
+
+                if (isRamp) {
                     child.material = child.material.clone();
                     rampMeshes.push(child);
                 }
-                if (OFFICE_MESH_NAMES.includes(child.name)) {
+                if (isOffice) {
                     child.material = child.material.clone();
                     officeMeshes.push(child);
                 }
             }
         });
 
-        console.log('%c Ramp meshes found:', 'color: #58a6ff; font-weight: bold;',
-            rampMeshes.length, '/', RAMP_MESH_NAMES.length, rampMeshes.map(m => m.name));
-        console.log('%c Office meshes found:', 'color: #58a6ff; font-weight: bold;',
-            officeMeshes.length, '/', OFFICE_MESH_NAMES.length, officeMeshes.map(m => m.name));
-
-        // ─── Centre & position ───
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
+        console.log('%c Ramp meshes dynamically assigned:', 'color: #58a6ff; font-weight: bold;', rampMeshes.length);
+        console.log('%c Office meshes dynamically assigned:', 'color: #58a6ff; font-weight: bold;', officeMeshes.length);
 
         model.position.sub(center);
         const yOffset = -box.min.y + center.y;
