@@ -194,6 +194,8 @@ gltfLoader.load(
         const maxDim = Math.max(size.x, size.y, size.z);
 
         // ─── Collect meshes by name or geometry for ramp/office groups ───
+        model.updateMatrixWorld(true);
+
         model.traverse((child) => {
             if (child.isMesh) {
                 let isRamp = RAMP_MESH_NAMES.includes(child.name);
@@ -206,9 +208,9 @@ gltfLoader.load(
                     const cSize = cBox.getSize(new THREE.Vector3());
                     
                     // Exclude massive structural items (floor, main skin) so they don't fade out
-                    if (cSize.x < size.x * 0.9 && cSize.y < size.y * 0.9 && cSize.z < size.z * 0.9) {
-                        if (cCenter.x < center.x - size.x * 0.05) isOffice = true;
-                        else if (cCenter.x > center.x + size.x * 0.05) isRamp = true;
+                    if (cSize.x < size.x * 0.95 && cSize.y < size.y * 0.95 && cSize.z < size.z * 0.95) {
+                        if (cCenter.x < center.x) isOffice = true;
+                        if (cCenter.x > center.x) isRamp = true;
                     }
                 }
 
