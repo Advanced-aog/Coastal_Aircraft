@@ -170,8 +170,8 @@ gltfLoader.setDRACOLoader(dracoLoader);
 // and Release asset URLs lack CORS headers — media.githubusercontent.com serves with CORS)
 const isGitHubPages = location.hostname.endsWith('.github.io');
 const MODEL_PATH = isGitHubPages
-    ? 'https://media.githubusercontent.com/media/Hermetic-Labs/coastal-aircraft-maintenance/main/model.glb'
-    : 'model.glb';
+    ? 'https://media.githubusercontent.com/media/Advanced-aog/Coastal_Aircraft/main/COASTAL_AIRCRAFT.glb'
+    : 'COASTAL_AIRCRAFT.glb';
 
 gltfLoader.load(
     MODEL_PATH,
