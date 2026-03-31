@@ -3,8 +3,8 @@
 const ctx = document.getElementById('revenueChart').getContext('2d');
 
 const historicalData = [3.08, 4.77, 2.74]; // 2023, 2024, 2025 (in Millions)
-const baseProjection = [5.75, 8.50, 13.50]; // 2026, 2027, 2028
-const upsideProjection = [6.00, 9.50, 15.00]; // Upside
+const baseProjection = [10.45, 14.57, 21.70]; // 2026, 2027, 2028
+const upsideProjection = [11.00, 16.00, 24.00]; // Upside
 
 // Financial Data (Millions)
 const financials = {
@@ -15,16 +15,16 @@ const financials = {
         ebitda: [0.19, 0.47, 0.08] // Net Income for historicals as proxy, or use actual EBITDA if known. Using Net Income from doc.
     },
     base: {
-        revenue: [5.75, 8.50, 13.50],
-        cogs: [3.59, 5.30, 8.37],
-        opex: [1.30, 2.00, 3.23],
-        ebitda: [0.87, 1.20, 1.90]
+        revenue: [10.45, 14.57, 21.70],
+        cogs: [4.79, 6.47, 10.11],
+        opex: [2.00, 3.00, 4.00],
+        ebitda: [3.66, 5.10, 7.59]
     },
     upside: {
-        revenue: [6.00, 9.50, 15.00],
-        cogs: [3.70, 5.85, 9.15],
-        opex: [1.35, 2.10, 3.45],
-        ebitda: [0.95, 1.55, 2.40]
+        revenue: [11.00, 16.00, 24.00],
+        cogs: [5.15, 7.40, 11.60],
+        opex: [2.00, 3.00, 4.00],
+        ebitda: [3.85, 5.60, 8.40]
     }
 };
 
@@ -191,23 +191,23 @@ const waterfallStages = {
         ]
     },
     year1: {
-        label: 'Year 1 — Ramp Up',
-        total: 4350000,
+        label: 'Year 1 — Combined Teams',
+        total: 10450000,
         segments: [
-            { name: 'Hangarage', amount: 550000, color: '#00a8e8', desc: 'Stable tenant income, Day 1 asset' },
-            { name: 'MRO Labor', amount: 2800000, color: '#0284c7', desc: '12 techs × $165/hr billable' },
-            { name: 'Fuel Sales', amount: 600000, color: '#7c3aed', desc: 'Initial fuel farm utilization' },
-            { name: 'Parts & Markup', amount: 400000, color: '#f59e0b', desc: 'Parts sales with industry markup' }
+            { name: 'Hangarage', amount: 650000, color: '#00a8e8', desc: 'Georgia + California Assets' },
+            { name: 'MRO Labor', amount: 7000000, color: '#0284c7', desc: '35 techs across ATL & KSBA' },
+            { name: 'Fuel Sales', amount: 1800000, color: '#7c3aed', desc: 'Combined ramp utilization' },
+            { name: 'Parts & Markup', amount: 1000000, color: '#f59e0b', desc: 'Expanded industry reach' }
         ]
     },
     year3: {
-        label: 'Year 3 — Full Scale',
-        total: 13500000,
+        label: 'Year 3 — National Scale',
+        total: 21700000,
         segments: [
-            { name: 'Hangarage', amount: 700000, color: '#00a8e8', desc: 'Expanded capacity with rate escalation' },
-            { name: 'MRO Labor', amount: 8500000, color: '#0284c7', desc: '28 techs × $175/hr avg billable' },
-            { name: 'Fuel Sales', amount: 2300000, color: '#7c3aed', desc: 'Full ramp utilization + volume growth' },
-            { name: 'Parts & Markup', amount: 2000000, color: '#f59e0b', desc: 'Scale + fleet maintenance contracts' }
+            { name: 'Hangarage', amount: 900000, color: '#00a8e8', desc: 'Maximized facility capacity' },
+            { name: 'MRO Labor', amount: 15600000, color: '#0284c7', desc: 'Top-tier tech saturation ($180/hr)' },
+            { name: 'Fuel Sales', amount: 3000000, color: '#7c3aed', desc: 'Multi-location high volume' },
+            { name: 'Parts & Markup', amount: 2200000, color: '#f59e0b', desc: 'National fleet contracts' }
         ]
     }
 };
