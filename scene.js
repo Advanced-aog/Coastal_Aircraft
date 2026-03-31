@@ -269,6 +269,20 @@ gltfLoader.load(
             }
         }
 
+        // ─── Add dynamic fallbacks if no meshes or presets were found ───
+        if (!viewPresets.ramp.pos) {
+            viewPresets.ramp = {
+                target: new THREE.Vector3(center.x + size.x * 0.25, center.y, center.z + size.z * 0.25),
+                pos: new THREE.Vector3(center.x + fitDistance * 0.3, center.y + fitDistance * 0.15, center.z + fitDistance * 0.3)
+            };
+        }
+        if (!viewPresets.office.pos) {
+            viewPresets.office = {
+                target: new THREE.Vector3(center.x - size.x * 0.25, center.y, center.z - size.z * 0.25),
+                pos: new THREE.Vector3(center.x - fitDistance * 0.3, center.y + fitDistance * 0.15, center.z - fitDistance * 0.1)
+            };
+        }
+
         // Apply home preset as initial camera position
         if (viewPresets.home.pos && viewPresets.home.target) {
             camera.position.copy(viewPresets.home.pos);
