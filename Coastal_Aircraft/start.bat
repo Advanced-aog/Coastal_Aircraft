@@ -1,29 +1,35 @@
 @echo off
-title Coastal Aircraft — 3D Viewer
+title Coastal Aircraft Maintenance
+
+:: ─── Self-unblock: strip the Mark-of-the-Web (Zone.Identifier) ───
+powershell -NoProfile -Command ^
+  "Get-ChildItem -Path '%~dp0..' -Recurse | Unblock-File -ErrorAction SilentlyContinue"
+powershell -NoProfile -Command "Unblock-File -Path '%~f0' -ErrorAction SilentlyContinue"
+
 echo.
 echo  ╔══════════════════════════════════════╗
-echo  ║   Coastal Aircraft — 3D Viewer       ║
+echo  ║   Coastal Aircraft Maintenance       ║
+echo  ║   Investor Presentation              ║
 echo  ╚══════════════════════════════════════╝
 echo.
 
-:: Check for node_modules
-if not exist "node_modules" (
-    echo  [1/2] Installing dependencies...
-    call npm install
-    if errorlevel 1 (
-        echo  ERROR: npm install failed. Make sure Node.js is installed.
-        pause
-        exit /b 1
-    )
+:: ─── Verify Python is installed ──────────────────────────────────
+where python >nul 2>nul
+if errorlevel 1 (
+    echo  ERROR: Python is not installed or not on PATH.
+    echo         Download it from https://python.org
     echo.
-) else (
-    echo  [1/2] Dependencies already installed — skipping.
+    pause
+    exit /b 1
 )
 
-echo  [2/2] Starting dev server...
-echo.
-echo  The viewer will open automatically at http://localhost:5173
-echo  Press Ctrl+C to stop the server.
+echo  Starting server on http://localhost:8080
 echo.
 
-npm run dev
+:: Open the browser
+start "" "http://localhost:8080"
+
+:: Run the Python server (foreground — keeps the window open)
+pushd "%~dp0.."
+python server.py
+popd

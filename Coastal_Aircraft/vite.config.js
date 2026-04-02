@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PARENT_DIR = path.resolve(__dirname, '..');
+const GLB_FILE = path.join(PARENT_DIR, 'COASTAL_AIRCRAFT.glb');
 
 // Dev-only plugin: exposes /__dev/save endpoint to write environmental config to main.js
 function devSavePlugin() {
@@ -28,9 +33,17 @@ function devSavePlugin() {
                 const rampStr = `const RAMP_MESH_NAMES = ${JSON.stringify(config.meshGroups.ramp)};`;
                 src = src.replace(/const RAMP_MESH_NAMES\s*=\s*\[.*?\];/, rampStr);
               }
+              if (config.meshGroups.ramp_hide) {
+                const rampHideStr = `const RAMP_HIDE_MESH_NAMES = ${JSON.stringify(config.meshGroups.ramp_hide)};`;
+                src = src.replace(/const RAMP_HIDE_MESH_NAMES\s*=\s*\[.*?\];/, rampHideStr);
+              }
               if (config.meshGroups.office) {
                 const officeStr = `const OFFICE_MESH_NAMES = ${JSON.stringify(config.meshGroups.office)};`;
                 src = src.replace(/const OFFICE_MESH_NAMES\s*=\s*\[.*?\];/, officeStr);
+              }
+              if (config.meshGroups.office_hide) {
+                const officeHideStr = `const OFFICE_HIDE_MESH_NAMES = ${JSON.stringify(config.meshGroups.office_hide)};`;
+                src = src.replace(/const OFFICE_HIDE_MESH_NAMES\s*=\s*\[.*?\];/, officeHideStr);
               }
             }
 
@@ -104,11 +117,36 @@ function devSavePlugin() {
   };
 }
 
+// Serve the parent directory's GLB as /model.glb
+function serveParentGlbPlugin() {
+  return {
+    name: 'serve-parent-glb',
+    configureServer(server) {
+      server.middlewares.use('/model.glb', (req, res) => {
+        if (!fs.existsSync(GLB_FILE)) {
+          res.statusCode = 404;
+          res.end('GLB not found at ' + GLB_FILE);
+          return;
+        }
+        const stat = fs.statSync(GLB_FILE);
+        res.setHeader('Content-Type', 'model/gltf-binary');
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Cache-Control', 'public, max-age=3600');
+        fs.createReadStream(GLB_FILE).pipe(res);
+      });
+    }
+  };
+}
+
 export default defineConfig({
-  plugins: [devSavePlugin()],
+  plugins: [devSavePlugin(), serveParentGlbPlugin()],
   server: {
     port: 5173,
-    open: true
+    open: true,
+    fs: {
+      allow: ['.', PARENT_DIR]
+    }
   },
   assetsInclude: ['**/*.glb']
 });
